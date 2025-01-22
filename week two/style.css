@@ -1,7 +1,11 @@
-body {
-  font-family: Arial, sans-serif;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
   background-color: #f4f4f9;
 }
 
@@ -14,10 +18,6 @@ header {
 
 main {
   padding: 20px;
-}
-
-h1 {
-  margin: 0;
 }
 
 section {
@@ -39,9 +39,27 @@ section {
 .command-title {
   font-weight: bold;
   color: #333;
+  font-size: large;
 }
 
 .command-description {
   color: #555;
   margin-top: 5px;
+}
+
+.command-code,
+.command-example {
+  background-color: #f9f9f9;
+  border-left: 6px solid #282c34;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  color: #333;
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.command-example {
+  background-color: #111111;
+  color: white;
+  border-left: 6px solid orangered;
 }
