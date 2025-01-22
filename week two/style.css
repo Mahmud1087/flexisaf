@@ -18,6 +18,8 @@ header {
 
 main {
   padding: 20px;
+  width: 80%;
+  margin: auto;
 }
 
 section {
