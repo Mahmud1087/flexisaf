@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  background-color: rgba(177, 171, 171, 0.356);
+}
+
+.container {
+  width: 50%;
+  margin: auto;
+}
+
+.todo-container {
+  margin-top: 5rem;
+}
+
+.single-todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(177, 171, 171, 0.356);
+  padding: 1.5rem 1rem;
+  border: 0.5px solid rgba(177, 171, 171, 0.356);
+  margin-top: 0.5rem;
+  background-color: white;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.form input {
+  width: 100%;
+  /* background-color: rgba(0, 0, 0, 0.164); */
+  border: 1px solid rgba(0, 0, 0, 0.534);
+  border-radius: 6px;
+  padding: 10px 15px;
+}
+
+.form button {
+  padding: 0 15px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.3rem;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 60%;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .container {
+    width: 90%;
+  }
+}
