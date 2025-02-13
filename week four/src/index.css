@@ -23,3 +23,56 @@ a {
   align-items: center;
   font-size: 3rem;
 }
+
+/* src/styles/styles.css */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right, #1e3c72, #2a5298);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.counter,
+.input-box,
+.local-storage {
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
+
+button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #ff9800;
+  color: white;
+}
+
+input {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  margin-right: 10px;
+}

@@ -1,109 +1,30 @@
-# RESTful API Guide
+# React Hooks Demo
 
-## Introduction
+### A simple React project demonstrating the use of useState, useEffect, useRef, and custom hooks.
 
-This guide covers the basics of making **POST, GET, PUT, and DELETE** requests using **React**. I used the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/) as my mock backend.
+# Features
 
----
+[✅] useState – Manages a counter state.
+[✅] useRef – Handles input field focus without re-rendering.
+[✅] useEffect – Demonstrates component lifecycle events.
+[✅] Custom Hook (useLocalStorage) – Manages local storage data.
 
-## Prerequisites
+# Project Structure
 
-- [React.js](https://react.dev/)
-
----
-
-## API Endpoints Used
-
-The `https://jsonplaceholder.typicode.com/posts` has the following endpoints.
-
-- **GET** `/posts` - Fetch all posts
-- **POST** `/posts` - Add a new post
-- **PUT** `/posts/:id` - Update a post
-- **DELETE** `/posts/:id` - Delete a post
-
----
-
-## **Fetching Posts (GET Request)**
-
-```js
-const fetchPosts = () => {
-  fetch('https://jsonplaceholder.typicode.com/posts')
-    .then((response) => response.json())
-    .then((json) => console.log('Posts Fetched Successfully: ', json))
-    .catch((error) => console.error('Error fetching posts:', error));
-};
-
-fetchPosts();
+```bash
+/src
+ ├── components
+ │   ├── MyComponent.tsx  # Main component using hooks
+ ├── hooks
+ │   ├── useLocalStorage.ts # Custom hook for local storage
+ ├── App.tsx
+ ├── index.tsx
+ ├── styles.css
 ```
 
-### **Adding a Post (POST Request)**
+# Technologies Used
 
-```js
-const addPost = () => {
-  fetch('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST',
-    body: JSON.stringify({
-      title: 'New Post Title',
-      body: 'New Post Body',
-      userId: 1,
-    }),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  })
-    .then((res) => res.json())
-    .then((json) => console.log('Post edited Successfully: ', json))
-    .catch((error) => console.log(error));
-};
-
-addPost();
-```
-
-### **Updating a Post (PUT Request)**
-
-```js
-const updatePost = (id) => {
-  fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-    method: 'PUT',
-    body: JSON.stringify({
-      id,
-      title: 'Edit Post Title',
-      body: 'Edit Post Body',
-      userId: 1,
-    }),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  })
-    .then((res) => res.json())
-    .then((json) => console.log('Post edited Successfully: ', json))
-    .catch((error) => console.log(error));
-};
-
-updatePost();
-```
-
-### **Deleting a Post (DELETE Request)**
-
-```js
-const deletePost = async (id) => {
-  fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-    method: 'DELETE',
-  })
-    .then(() => console.log('Successfully deleted'))
-    .catch((error) => console.log(error));
-};
-
-deletePost();
-```
-
----
-
-## Conclusion
-
-This guide demonstrates the four main operations in a RESTful API using React and JSONPlaceholder:
-
-- **GET** - Retrieve posts
-- **POST** - Add a new post
-- **PUT** - Update a post
-- **DELETE** - Remove a post
+[1] React.js + TypeScript
+[2] Vite
+[3] Local Storage API
+[4] Hooks (useState, useEffect, useRef)
