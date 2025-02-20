@@ -32,26 +32,29 @@ function App() {
     }
   };
 
-  const addPost = () => {
+  const addPost = async () => {
     setCreating(true);
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      body: JSON.stringify({
-        title: addPostForm.title,
-        body: addPostForm.body,
-        userId: 1,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then((res) => res.json())
-      .then((newPost) => {
-        setPosts((prev) => [...prev, newPost]);
-        resetForm();
-      })
-      .catch((error) => console.log(error))
-      .finally(() => setCreating(false));
+    try {
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: addPostForm.title,
+          body: addPostForm.body,
+          userId: 1,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      const data = await res.json();
+
+      setPosts((prev) => [...prev, data]);
+      resetForm();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setCreating(false);
+    }
   };
 
   const editPost = (post) => {
@@ -59,48 +62,62 @@ function App() {
     setAddPostForm({ title: post.title, body: post.body });
   };
 
-  const updatePost = () => {
+  const updatePost = async () => {
     setCreating(true);
-    fetch(`https://jsonplaceholder.typicode.com/posts/${editPostId}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        id: editPostId,
-        title: addPostForm.title,
-        body: addPostForm.body,
-        userId: 1,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then((res) => res.json())
-      .then((updatedPost) => {
-        setPosts((prev) =>
-          prev.map((post) => (post.id === editPostId ? updatedPost : post))
-        );
-        resetForm();
-      })
-      .catch((error) => console.log(error))
-      .finally(() => setCreating(false));
+    try {
+      const res = await fetch(
+        `https://jsonplaceholder.typicode.com/posts/${editPostId}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify({
+            id: editPostId,
+            title: addPostForm.title,
+            body: addPostForm.body,
+            userId: 1,
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        }
+      );
+      const data = await res.json();
+
+      setPosts((prev) =>
+        prev.map((post) => (post.id === editPostId ? data : post))
+      );
+      resetForm();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setCreating(false);
+    }
   };
 
-  const deletePost = (id) => {
+  const deletePost = async (id) => {
     setDeleting(true);
-    fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-      method: 'DELETE',
-    })
-      .then(() => setPosts((prev) => prev.filter((post) => post.id !== id)))
-      .catch((error) => console.log(error))
-      .finally(() => setDeleting(false));
+    try {
+      await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+        method: 'DELETE',
+      });
+      setPosts((prev) => prev.filter((post) => post.id !== id));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setDeleting(false);
+    }
   };
 
-  const fetchPosts = () => {
+  const fetchPosts = async () => {
     setLoading(true);
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then((res) => res.json())
-      .then((json) => setPosts(json))
-      .catch((error) => console.log(error))
-      .finally(() => setLoading(false));
+    try {
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+      const data = await res.json();
+      setPosts(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const resetForm = () => {
