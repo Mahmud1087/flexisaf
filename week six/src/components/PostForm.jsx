@@ -28,6 +28,7 @@ const PostForm = ({ onSubmit, editPost, saving, editing }) => {
       component='form'
       onSubmit={handleSubmit}
       sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}
+      className='post-form'
     >
       <TextField
         label='Title'
@@ -35,6 +36,7 @@ const PostForm = ({ onSubmit, editPost, saving, editing }) => {
         value={form.title}
         onChange={handleChange}
         required
+        className='add-post-input'
       />
       <TextField
         label='Body'
@@ -44,6 +46,7 @@ const PostForm = ({ onSubmit, editPost, saving, editing }) => {
         multiline
         rows={4}
         required
+        className='add-post-textarea'
       />
       <Button
         type='submit'

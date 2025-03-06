@@ -15,14 +15,8 @@ a {
   text-decoration: none;
 }
 
-.container {
-  width: 70%;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 .post-form {
-  margin: 20px 0;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,8 +29,8 @@ a {
   flex-direction: column;
 }
 
-.add-post input,
-.add-post textarea {
+.add-post-input,
+.add-post-textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -44,25 +38,10 @@ a {
   background-color: rgba(255, 255, 255, 0.644);
 }
 
-.add-post textarea {
+.add-post-textarea {
   resize: none;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
-}
-
-.post-form button {
-  padding: 10px 20px;
-  background-color: rgba(0, 123, 255, 0.7);
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  transition: all 0.5s ease-in-out;
-  width: fit-content;
-}
-
-.post-form button:hover {
-  background-color: rgba(0, 123, 255, 0.8);
 }
 
 .posts {
@@ -80,10 +59,7 @@ a {
 }
 
 .post {
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  height: 100%;
   display: flex;
   background-color: white;
   flex-direction: column;

@@ -52,25 +52,44 @@ function App() {
 
   if (loading) {
     return (
-      <Typography variant='h6' align='center'>
+      <Typography variant='h6' align='start'>
         Loading...
       </Typography>
     );
   }
 
   return (
-    <Container maxWidth='md'>
+    <Container
+      maxWidth='md'
+      style={{
+        marginTop: '55px',
+      }}
+    >
+      <Typography
+        variant='h5'
+        align='center'
+        style={{
+          marginBottom: '20px',
+        }}
+      >
+        Todo App Usig jsonplaceholder API and Material UI
+      </Typography>
       <PostForm
         onSubmit={handleSubmit}
         editPost={editPost}
         saving={saving}
         editing={editing}
       />
-      <Typography variant='h5' gutterBottom align='center'>
+      <Typography
+        variant='h5'
+        gutterBottom
+        align='center'
+        className='posts-title'
+      >
         Posts
       </Typography>
       <PostList
-        posts={posts.reverse()}
+        posts={[...posts].reverse()}
         onDelete={handleDelete}
         onEdit={handleEdit}
         deleting={deleting}
