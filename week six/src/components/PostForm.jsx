@@ -1,56 +1,65 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from 'react';
-import { Button, Form, Input } from 'antd';
+import { useEffect, useState } from 'react';
+import { TextField, Button, Box, CircularProgress } from '@mui/material';
 
 const PostForm = ({ onSubmit, editPost, saving, editing }) => {
-  const [form] = Form.useForm();
+  const [form, setForm] = useState({ title: '', body: '' });
 
   useEffect(() => {
     if (editPost) {
-      form.setFieldsValue(editPost);
+      setForm(editPost);
+    } else {
+      setForm({ title: '', body: '' });
     }
-  }, [editPost, form]);
+  }, [editPost]);
 
-  const handleFinish = (values) => {
-    onSubmit(values);
-    form.resetFields();
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(form);
+    setForm({ title: '', body: '' });
   };
 
   return (
-    <Form
-      layout='vertical'
-      form={form}
-      onFinish={handleFinish}
-      className='post-form'
+    <Box
+      component='form'
+      onSubmit={handleSubmit}
+      sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}
     >
-      <Form.Item
-        name='title'
-        rules={[{ required: true, message: 'Enter post title' }]}
+      <TextField
         label='Title'
-      >
-        <Input placeholder='Enter post title...' />
-      </Form.Item>
-      <Form.Item
-        name='body'
-        rules={[{ required: true, message: 'Enter post body' }]}
+        name='title'
+        value={form.title}
+        onChange={handleChange}
+        required
+      />
+      <TextField
         label='Body'
-      >
-        <Input.TextArea placeholder='Enter post body...' rows={5} />
-      </Form.Item>
+        name='body'
+        value={form.body}
+        onChange={handleChange}
+        multiline
+        rows={4}
+        required
+      />
       <Button
-        htmlType='submit'
-        loading={saving || editing}
+        type='submit'
+        variant='contained'
+        color='primary'
         disabled={saving || editing}
       >
-        {saving
-          ? 'Saving...'
-          : editing
-          ? 'Editing...'
-          : editPost
-          ? 'Save Changes'
-          : 'Submit'}
+        {saving || editing ? (
+          <CircularProgress size={24} />
+        ) : editPost ? (
+          'Save Changes'
+        ) : (
+          'Submit'
+        )}
       </Button>
-    </Form>
+    </Box>
   );
 };
 

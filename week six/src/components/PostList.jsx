@@ -1,29 +1,44 @@
 /* eslint-disable react/prop-types */
-import { Button } from 'antd';
+import {
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  CircularProgress,
+  Box,
+} from '@mui/material';
 
 const PostList = ({ posts, onDelete, onEdit, deleting }) => {
   return (
-    <div className='posts'>
+    <Box>
       {posts.map((post) => (
-        <div key={post.id} className='post'>
-          <h3 className='post-title'>{post.title}</h3>
-          <p className='post-body'>{post.body}</p>
-          <section className='post-btns'>
-            <Button
-              className='delete-btn'
-              onClick={() => onDelete(post.id)}
-              loading={deleting[post.id]}
-              disabled={deleting[post.id]}
-            >
-              {deleting[post.id] ? 'Deleting...' : 'Delete'}
-            </Button>
-            <Button className='edit-btn' onClick={() => onEdit(post)}>
-              Edit
-            </Button>
-          </section>
-        </div>
+        <Card key={post.id} sx={{ mb: 2, p: 2 }}>
+          <CardContent>
+            <Typography variant='h6'>{post.title}</Typography>
+            <Typography variant='body2' color='textSecondary'>
+              {post.body}
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 1, mt: 2 }}>
+              <Button
+                variant='contained'
+                color='secondary'
+                onClick={() => onDelete(post.id)}
+                disabled={deleting[post.id]}
+              >
+                {deleting[post.id] ? <CircularProgress size={20} /> : 'Delete'}
+              </Button>
+              <Button
+                variant='outlined'
+                color='primary'
+                onClick={() => onEdit(post)}
+              >
+                Edit
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
       ))}
-    </div>
+    </Box>
   );
 };
 

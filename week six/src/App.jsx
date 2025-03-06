@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
 import { fetchPosts, addPost, updatePost, deletePost } from './services/api';
+import { Container, Typography } from '@mui/material';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -50,25 +51,31 @@ function App() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Typography variant='h6' align='center'>
+        Loading...
+      </Typography>
+    );
   }
 
   return (
-    <div className='container'>
+    <Container maxWidth='md'>
       <PostForm
         onSubmit={handleSubmit}
         editPost={editPost}
         saving={saving}
         editing={editing}
       />
-      <h2 className='posts-title'>Posts</h2>
+      <Typography variant='h5' gutterBottom align='center'>
+        Posts
+      </Typography>
       <PostList
-        posts={[...posts].reverse()}
+        posts={posts.reverse()}
         onDelete={handleDelete}
         onEdit={handleEdit}
         deleting={deleting}
       />
-    </div>
+    </Container>
   );
 }
 
