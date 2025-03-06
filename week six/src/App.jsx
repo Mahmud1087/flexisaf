@@ -1,133 +1,53 @@
 import { useEffect, useState } from 'react';
-
-// Made use of jsonplaceholder API
+import PostForm from './components/PostForm';
+import PostList from './components/PostList';
+import { fetchPosts, addPost, updatePost, deletePost } from './services/api';
 
 function App() {
   const [posts, setPosts] = useState([]);
+  const [editPost, setEditPost] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [creating, setCreating] = useState(false);
-  const [deleting, setDeleting] = useState(false);
-  const [editPostId, setEditPostId] = useState(null);
-
-  const [addPostForm, setAddPostForm] = useState({
-    title: '',
-    body: '',
-  });
-
-  const sortedPosts = [...posts].reverse();
-
-  const handleChange = (e) => {
-    setAddPostForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (editPostId) {
-      updatePost();
-    } else {
-      addPost();
-    }
-  };
-
-  const addPost = async () => {
-    setCreating(true);
-    try {
-      const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        body: JSON.stringify({
-          title: addPostForm.title,
-          body: addPostForm.body,
-          userId: 1,
-        }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      });
-      const data = await res.json();
-
-      setPosts((prev) => [...prev, data]);
-      resetForm();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setCreating(false);
-    }
-  };
-
-  const editPost = (post) => {
-    setEditPostId(post.id);
-    setAddPostForm({ title: post.title, body: post.body });
-  };
-
-  const updatePost = async () => {
-    setCreating(true);
-    try {
-      const res = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${editPostId}`,
-        {
-          method: 'PUT',
-          body: JSON.stringify({
-            id: editPostId,
-            title: addPostForm.title,
-            body: addPostForm.body,
-            userId: 1,
-          }),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-          },
-        }
-      );
-      const data = await res.json();
-
-      setPosts((prev) =>
-        prev.map((post) => (post.id === editPostId ? data : post))
-      );
-      resetForm();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setCreating(false);
-    }
-  };
-
-  const deletePost = async (id) => {
-    setDeleting(true);
-    try {
-      await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-        method: 'DELETE',
-      });
-      setPosts((prev) => prev.filter((post) => post.id !== id));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setDeleting(false);
-    }
-  };
-
-  const fetchPosts = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-      const data = await res.json();
-      setPosts(data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const resetForm = () => {
-    setAddPostForm({ title: '', body: '' });
-    setEditPostId(null);
-  };
+  const [saving, setSaving] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [deleting, setDeleting] = useState({});
 
   useEffect(() => {
-    fetchPosts();
+    const loadPosts = async () => {
+      setLoading(true);
+      const data = await fetchPosts();
+      setPosts(data);
+      setLoading(false);
+    };
+    loadPosts();
   }, []);
+
+  const handleSubmit = async (postData) => {
+    if (editPost) {
+      setEditing(true);
+      const updatedPost = await updatePost(editPost.id, postData);
+      setPosts((prev) =>
+        prev.map((post) => (post.id === editPost.id ? updatedPost : post))
+      );
+      setEditPost(null);
+      setEditing(false);
+    } else {
+      setSaving(true);
+      const newPost = await addPost(postData);
+      setPosts((prev) => [...prev, newPost]);
+      setSaving(false);
+    }
+  };
+
+  const handleEdit = (post) => {
+    setEditPost(post);
+  };
+
+  const handleDelete = async (postId) => {
+    setDeleting((prev) => ({ ...prev, [postId]: true }));
+    await deletePost(postId);
+    setPosts((prev) => prev.filter((post) => post.id !== postId));
+    setDeleting((prev) => ({ ...prev, [postId]: false }));
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -135,54 +55,19 @@ function App() {
 
   return (
     <div className='container'>
-      <form className='post-form' onSubmit={handleSubmit}>
-        <div className='add-post'>
-          <label htmlFor='add-post-title'>Title:</label>
-          <input
-            type='text'
-            name='title'
-            placeholder='Add post title...'
-            value={addPostForm.title}
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div className='add-post'>
-          <label htmlFor='add-post-body'>Body:</label>
-          <textarea
-            name='body'
-            placeholder='Enter post body...'
-            rows={5}
-            value={addPostForm.body}
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <button type='submit' disabled={creating}>
-          {creating ? 'Loading...' : editPostId ? 'Save Changes' : 'Submit'}
-        </button>
-      </form>
-
+      <PostForm
+        onSubmit={handleSubmit}
+        editPost={editPost}
+        saving={saving}
+        editing={editing}
+      />
       <h2 className='posts-title'>Posts</h2>
-      <div className='posts'>
-        {sortedPosts.map((post) => (
-          <div key={post.id} className='post'>
-            <h3 className='post-title'>{post.title}</h3>
-            <p className='post-body'>{post.body}</p>
-            <section className='post-btns'>
-              <button
-                className='delete-btn'
-                onClick={() => deletePost(post.id)}
-              >
-                {deleting ? 'Deleting...' : 'Delete'}
-              </button>
-              <button className='edit-btn' onClick={() => editPost(post)}>
-                Edit
-              </button>
-            </section>
-          </div>
-        ))}
-      </div>
+      <PostList
+        posts={[...posts].reverse()}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+        deleting={deleting}
+      />
     </div>
   );
 }
