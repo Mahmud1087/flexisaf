@@ -8,7 +8,7 @@
   --primary-font: 'Archivo', sans-serif !important;
   --secondary-font: 'Inter', sans-serif !important;
   --radius: 0.5rem;
-  --background: oklch(1 0 0);
+  --background: oklch(0.968 0.007 247.896);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
@@ -91,7 +91,7 @@
 }
 
 .dark {
-  --background: oklch(0.141 0.005 285.823);
+  --background: oklch(0.13 0.028 261.692);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.21 0.006 285.885);
   --card-foreground: oklch(0.985 0 0);
@@ -130,7 +130,7 @@
 
 body,
 input {
-  background-color: var(--grayscale-color);
+  background-color: var(--background);
   font-family: var(--primary-font);
   font-weight: 400;
   scrollbar-color: #cbd5e0 #f1f1f1;
@@ -138,6 +138,61 @@ input {
   transition: all 0.3s ease-in-out;
 
   @apply dark:bg-gray-950;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+ol,
+ul,
+dl,
+button span {
+  font-family: var(--primary-font);
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  cursor: pointer;
+  /* transition: all 0.3s ease-in-out; */
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+abbr,
+abbr[title] {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  box-shadow: none !important;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  --webkit-appearance: none;
+}
+
+.primary-font {
+  font-family: var(--primary-font);
+}
+
+.secondary-font {
+  font-family: var(--secondary-font);
 }
 
 /* width */

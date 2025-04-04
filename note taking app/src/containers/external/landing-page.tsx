@@ -1,7 +1,19 @@
+import Cta from '@/components/external/landing-page/cta';
+import Features from '@/components/external/landing-page/features';
+import Footer from '@/components/external/landing-page/footer';
+import Hero from '@/components/external/landing-page/hero';
+import Navbar from '@/components/external/landing-page/navbar';
+import Testimonials from '@/components/external/landing-page/testimonials';
+
 export default function Home() {
   return (
-    <div className='min-h-screen flex items-center justify-center'>
-      <h1 className='text-red text-5xl text-center'>Home Page</h1>
-    </div>
+    <>
+      <Navbar />
+      <Hero />
+      <Features />
+      <Testimonials />
+      <Cta />
+      <Footer />
+    </>
   );
 }
