@@ -16,14 +16,14 @@ const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ConfigProvider theme={theme({ themeValue: 'light' })}>
-        <GlobalContextProvider>
-          <ConvexAuthProvider client={convex}>
+    <ConvexAuthProvider client={convex}>
+      <BrowserRouter>
+        <ConfigProvider theme={theme({ themeValue: 'light' })}>
+          <GlobalContextProvider>
             <App />
-          </ConvexAuthProvider>
-        </GlobalContextProvider>
-      </ConfigProvider>
-    </BrowserRouter>
+          </GlobalContextProvider>
+        </ConfigProvider>
+      </BrowserRouter>
+    </ConvexAuthProvider>
   </React.StrictMode>
 );

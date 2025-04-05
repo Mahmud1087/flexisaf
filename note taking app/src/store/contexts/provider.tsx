@@ -1,3 +1,4 @@
+import { DashboardProvider } from '.';
 import AdminAuthProvider from './auth/provider';
 import ModalProvider from './modals/provider';
 import ThemeProvider from './theme/provider';
@@ -8,7 +9,9 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     <ThemeProvider>
       <ModalProvider>
         <ToastProvider>
-          <AdminAuthProvider>{children}</AdminAuthProvider>
+          <AdminAuthProvider>
+            <DashboardProvider>{children}</DashboardProvider>
+          </AdminAuthProvider>
         </ToastProvider>
       </ModalProvider>
     </ThemeProvider>

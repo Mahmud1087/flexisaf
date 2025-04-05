@@ -1,7 +1,22 @@
+import { ArchiveLists, NotesLists, TrashList } from '@/components/dashboard';
+import Profile from '@/components/dashboard/profile';
+import DashboardLayout from '@/layout/dashboard-layout';
+import { useDashboardContext } from '@/store/contexts';
+
 export default function Dashboard() {
+  const { list } = useDashboardContext();
+
   return (
-    <div className='min-h-screen flex items-center justify-center'>
-      <h1 className='text-red text-5xl text-center'>Dashboard</h1>
-    </div>
+    <DashboardLayout>
+      {list === 'All Notes' ? (
+        <NotesLists />
+      ) : list === 'Archive' ? (
+        <ArchiveLists />
+      ) : list === 'Trash' ? (
+        <TrashList />
+      ) : (
+        <Profile />
+      )}
+    </DashboardLayout>
   );
 }

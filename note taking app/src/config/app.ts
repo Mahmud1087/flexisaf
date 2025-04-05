@@ -1,6 +1,6 @@
-export const APP_NAME = 'BillBuddy';
+export const APP_NAME = 'NoteSpace';
 
-export const APP_COMPANY_NAME = 'BillBuddy';
+export const APP_COMPANY_NAME = 'NoteSpace';
 
 export const DEFAULT_PAGINATION_SIZE = 5;
 

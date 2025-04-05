@@ -1,22 +1,50 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { DashboardContext } from './context';
+import { DashboardTabListType } from '@/types';
 
 export type DashboardContextType = {
   // You can change this to whatever you want
-  user: string | null;
-  setUser: Dispatch<SetStateAction<string | null>>;
+  list: DashboardTabListType;
+  setList: Dispatch<SetStateAction<DashboardTabListType>>;
+  changeList: (item: string) => void;
 };
 
 const AuthProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [user, setUser] = useState<string | null>(null);
+  const getInitialList = (): DashboardTabListType => {
+    const stored = localStorage.getItem('list') as DashboardTabListType | null;
+    if (
+      stored === 'All Notes' ||
+      stored === 'Archive' ||
+      stored === 'Trash' ||
+      stored === 'Profile'
+    ) {
+      return stored;
+    }
+    localStorage.setItem('list', 'All Notes');
+    return 'All Notes';
+  };
+
+  const [list, setList] = useState<DashboardTabListType>(() =>
+    getInitialList()
+  );
+
+  useEffect(() => {
+    localStorage.setItem('list', list);
+  }, [list]);
+
+  const changeList = (item: string) => {
+    setList(item as DashboardTabListType);
+    localStorage.setItem('list', item);
+  };
 
   return (
     <DashboardContext.Provider
       value={{
-        user,
-        setUser,
+        list,
+        setList,
+        changeList,
       }}
     >
       {children}
