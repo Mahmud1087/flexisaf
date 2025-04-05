@@ -15,9 +15,7 @@ const UserButton = () => {
         <>
           {isAuthenticated && (
             <div className='w-[9rem] md:w-[12rem]'>
-              <p className='text-blue-950'>
-                {user && user.name ? user.name : 'Name not updated'}
-              </p>
+              <p className='text-blue-950'>{user?.email}</p>
             </div>
           )}
         </>
@@ -49,7 +47,11 @@ const UserButton = () => {
                 <User size={18} />
               )}
             </aside>
-            <p className='text-sm'>{user?.email}</p>
+            <p className='text-sm'>
+              {user && user?.name
+                ? user.name.split(' ')[0] + ' ' + user.name.split(' ')[1]
+                : 'User'}
+            </p>
             <p className='text-xs hidden md:block'>
               <DownOutlined />
             </p>

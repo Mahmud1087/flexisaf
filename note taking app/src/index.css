@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Dancing+Script:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -7,6 +7,7 @@
 :root {
   --primary-font: 'Archivo', sans-serif !important;
   --secondary-font: 'Inter', sans-serif !important;
+  --tertiary-font: 'Dancing Script', sans-serif !important;
   --radius: 0.5rem;
   --background: oklch(0.968 0.007 247.896);
   --foreground: oklch(0.141 0.005 285.823);
@@ -193,6 +194,10 @@ input[type='number']::-webkit-outer-spin-button {
 
 .secondary-font {
   font-family: var(--secondary-font);
+}
+
+.tertiary-font {
+  font-family: var(--tertiary-font);
 }
 
 /* width */
