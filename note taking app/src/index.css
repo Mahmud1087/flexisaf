@@ -148,7 +148,6 @@ h4,
 h5,
 h6,
 p,
-span,
 a,
 ol,
 ul,
@@ -206,7 +205,8 @@ input[type='number']::-webkit-outer-spin-button {
 
 .prose {
   font-family: 'Inter', sans-serif;
-  color: black;
+
+  @apply text-background dark:text-white;
 }
 
 .prose strong {

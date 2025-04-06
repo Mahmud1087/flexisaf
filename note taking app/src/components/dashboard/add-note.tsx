@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { PlusOutlined } from '@ant-design/icons';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import {
   Form,
@@ -33,6 +33,9 @@ import {
 } from '../ui/select';
 import { CategoryType } from '@/types';
 import { ScrollArea } from '../ui/scroll-area';
+import { useMutation } from 'convex/react';
+import { api } from '@/../convex/_generated/api';
+import { useToastContext } from '@/store/contexts';
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -46,10 +49,33 @@ const formSchema = z.object({
   tags: z.string(),
 });
 
+const bgColors = [
+  'bg-yellow-200',
+  'bg-red-200',
+  'bg-blue-200',
+  'bg-green-200',
+  'bg-purple-200',
+  'bg-orange-200',
+  'bg-pink-200',
+  'bg-sky-200',
+  'bg-lime-200',
+  'bg-amber-200',
+  'bg-indigo-200',
+  'bg-rose-200',
+  'bg-teal-200',
+  'bg-cyan-200',
+  'bg-fuchsia-200',
+  'bg-emerald-200',
+];
+
 export default function AddNote() {
   const [addNewNoteModal, setAddNewNoteModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [note, setNote] = useState('');
+  const { open } = useToastContext();
   const [category, setCategory] = useState<CategoryType>('General');
+
+  const addNewNote = useMutation(api.notes.addNote);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,13 +89,36 @@ export default function AddNote() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log({
+    const randomColor = bgColors[Math.floor(Math.random() * bgColors.length)];
+
+    const data = {
       title: values.title,
       content: note,
-      categores: category,
+      categories: category === 'Others' ? values.others : (category as string),
       tags: values.tags,
-      others: values.others,
-    });
+      bgColor: randomColor,
+    };
+    setLoading(true);
+    try {
+      const res = await addNewNote(data);
+      open({
+        message: res,
+        type: 'success',
+        duration: 5,
+      });
+      form.reset();
+      setNote('');
+      setCategory('General');
+      setAddNewNoteModal(false);
+    } catch (error) {
+      open({
+        message: error instanceof Error ? error.message : 'Failed to add note',
+        type: 'error',
+        duration: 5,
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -197,8 +246,8 @@ export default function AddNote() {
             </Form>
           </div>
           <DialogFooter>
-            <Button form='add-note-form' type='submit'>
-              Add
+            <Button form='add-note-form' type='submit' disabled={loading}>
+              {loading ? <LoadingOutlined /> : 'Add'}
             </Button>
           </DialogFooter>
         </ScrollArea>

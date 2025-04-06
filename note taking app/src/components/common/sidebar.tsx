@@ -9,7 +9,7 @@ import { MenuOutlined } from '@ant-design/icons';
 import Logo from './logo';
 import { useLocation } from 'react-router-dom';
 import AuthButtons from './auth-buttons';
-import { FileArchive, Notebook, Settings, Trash2 } from 'lucide-react';
+import { Notebook, Settings } from 'lucide-react';
 import { DASHBOARD_PAGE } from '@/config';
 import { useDashboardContext } from '@/store/contexts';
 import { useState } from 'react';
@@ -34,14 +34,14 @@ const dashboardNavItems = [
     icon: Notebook,
     label: 'All Notes',
   },
-  {
-    icon: FileArchive,
-    label: 'Archive',
-  },
-  {
-    icon: Trash2,
-    label: 'Trash',
-  },
+  // {
+  //   icon: FileArchive,
+  //   label: 'Archive',
+  // },
+  // {
+  //   icon: Trash2,
+  //   label: 'Trash',
+  // },
   {
     icon: Settings,
     label: 'Profile',
