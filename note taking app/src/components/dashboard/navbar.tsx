@@ -1,8 +1,7 @@
 import { Sidebar } from '@/components/common';
 import UserButton from '../common/user-button';
 import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import { PlusOutlined } from '@ant-design/icons';
+import { AddNewNote } from '.';
 
 const Navbar = () => {
   const now = new Date();
@@ -35,9 +34,7 @@ const Navbar = () => {
           />
         </div>
         <div className='flex justify-center md:hidden'>
-          <Button className='rounded-full p-0 h-8 w-8' asChild>
-            <PlusOutlined />
-          </Button>
+          <AddNewNote />
         </div>
       </section>
     </nav>

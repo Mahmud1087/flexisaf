@@ -9,3 +9,10 @@ export type NotesTabListType =
   | 'This Week'
   | 'This Month'
   | 'This Year';
+
+export type CategoryType =
+  | 'General'
+  | 'School'
+  | 'Work'
+  | 'Business'
+  | 'Others';

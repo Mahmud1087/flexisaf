@@ -200,6 +200,19 @@ input[type='number']::-webkit-outer-spin-button {
   font-family: var(--tertiary-font);
 }
 
+.editor {
+  @apply bg-background;
+}
+
+.prose {
+  font-family: 'Inter', sans-serif;
+  color: black;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
 /* width */
 ::-webkit-scrollbar {
   height: 14.5px;

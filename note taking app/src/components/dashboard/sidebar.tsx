@@ -1,8 +1,7 @@
 import { Logo } from '../common';
 import { FileArchive, Notebook, Settings, Trash2 } from 'lucide-react';
-import { Button } from '../ui/button';
-import { PlusOutlined } from '@ant-design/icons';
 import { useDashboardContext } from '@/store/contexts';
+import { AddNewNote } from '.';
 
 const menu = [
   {
@@ -30,9 +29,7 @@ const Sidebar = () => {
     <div className='fixed left-0 top-0 bg-slate-50 shadow dark:bg-gray-900 w-[inherit] h-screen px-5 py-8 flex flex-col gap-16'>
       <Logo />
       <div className='flex justify-center'>
-        <Button className='rounded-full p-0 h-10 w-10'>
-          <PlusOutlined />
-        </Button>
+        <AddNewNote />
       </div>
 
       <div className='flex flex-col space-y-3'>

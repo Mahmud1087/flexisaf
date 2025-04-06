@@ -19,7 +19,7 @@ const AppRoutes = () => {
             element={
               <Suspense
                 fallback={
-                  <div className='h-screen w-screen bg-background dark:text-gray-200 flex justify-center items-center'>
+                  <div className='h-screen w-screen bg-background dark:bg-gray-900 flex justify-center items-center'>
                     <Spin />
                   </div>
                 }
@@ -38,7 +38,7 @@ const AppRoutes = () => {
             element={
               <Suspense
                 fallback={
-                  <div className='h-screen w-screen bg-background dark:text-gray-200 flex justify-center items-center'>
+                  <div className='h-screen w-screen bg-background dark:bg-gray-900 flex justify-center items-center'>
                     <Spin />
                   </div>
                 }
@@ -58,7 +58,7 @@ const AppRoutes = () => {
               <ProtectedRoutes>
                 <Suspense
                   fallback={
-                    <div className='h-screen w-screen bg-background dark:text-gray-200 flex justify-center items-center'>
+                    <div className='h-screen w-screen bg-background dark:bg-gray-900 flex justify-center items-center'>
                       <Spin />
                     </div>
                   }

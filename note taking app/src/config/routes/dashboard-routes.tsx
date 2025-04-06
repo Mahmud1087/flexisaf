@@ -9,7 +9,7 @@ export const dashboardRoutes = [
 
   {
     path: EXPENSES_PAGE,
-    component: lazy(() => import('../../pages/dashboard/[expenses]/index')),
+    component: lazy(() => import('../../pages/dashboard/expenses/index')),
   },
 
   {
