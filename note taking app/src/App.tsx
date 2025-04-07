@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <AppRoutes />
-      <div className='h-8 w-8 rounded-full flex items-center justify-center bg-gray-950 text-white dark:text-black dark:bg-gray-200 cursor-pointer fixed right-1.5 bottom-4 text-sm'>
+      <div className='h-10 w-10 rounded-full flex items-center justify-center bg-gray-950 text-white dark:text-black dark:bg-gray-200 cursor-pointer fixed right-6 bottom-6 text-lg'>
         <button className='cursor-pointer' onClick={toggleTheme}>
           {theme === 'light' ? <MoonFilled /> : <SunFilled />}
         </button>
