@@ -14,7 +14,7 @@ import { Badge } from '@/components/ui/badge';
 export default function SingleNote() {
   const { singleNote } = useParams();
   const { goBack } = useNavigate();
-  const notes = useQuery(api.notes.getAllNotes);
+  const notes = useQuery(api.notes.getAllNotes, {});
   const noteDetails = notes?.find(
     (note) => note._id === (singleNote as Id<TableNames | SystemTableNames>)
   );
