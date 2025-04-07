@@ -1,21 +1,21 @@
 import { Logo } from '../common';
-import { FileArchive, Notebook, Settings, Trash2 } from 'lucide-react';
+import { Notebook, Settings } from 'lucide-react';
 import { useDashboardContext } from '@/store/contexts';
 import { AddNewNote } from '.';
 
 const menu = [
   {
     icon: Notebook,
-    label: 'All Notes',
+    label: 'Notes',
   },
-  {
-    icon: FileArchive,
-    label: 'Archive',
-  },
-  {
-    icon: Trash2,
-    label: 'Trash',
-  },
+  // {
+  //   icon: FileArchive,
+  //   label: 'Archive',
+  // },
+  // {
+  //   icon: Trash2,
+  //   label: 'Trash',
+  // },
   {
     icon: Settings,
     label: 'Profile',

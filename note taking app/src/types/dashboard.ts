@@ -1,11 +1,7 @@
 import { Id, TableNames } from 'convex/_generated/dataModel';
 import { SystemTableNames } from 'convex/server';
 
-export type DashboardTabListType =
-  | 'All Notes'
-  | 'Archive'
-  | 'Trash'
-  | 'Profile';
+export type DashboardTabListType = 'Notes' | 'Archive' | 'Trash' | 'Profile';
 
 export type NotesTabListType =
   | 'Today'

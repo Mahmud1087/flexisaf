@@ -28,8 +28,11 @@ export const addNote = mutation({
 });
 
 export const getAllNotes = query({
-  args: {},
-  handler: async (ctx) => {
+  args: {
+    search: v.optional(v.string()),
+    type: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
     if (userId === null) {
       throw new Error('User not authenticated');
@@ -41,7 +44,53 @@ export const getAllNotes = query({
       .order('desc')
       .collect();
 
-    return notes.reverse();
+    if (!args.search || args.search.trim() === '' || args.search === 'All') {
+      return notes.reverse();
+    }
+
+    if (args.search === 'Others') {
+      const filtered = notes.filter(
+        (note) =>
+          note.categories !== 'All' &&
+          note.categories !== 'Business' &&
+          note.categories !== 'Work' &&
+          note.categories !== 'School' &&
+          note.categories !== 'General'
+      );
+      return filtered.reverse();
+    }
+
+    if (args.type === 'select') {
+      let filtered;
+
+      if (args.search === 'All') {
+        filtered = notes.filter((note) => note.categories === 'All');
+      } else if (args.search === 'Business') {
+        filtered = notes.filter((note) => note.categories === 'Business');
+      } else if (args.search === 'Work') {
+        filtered = notes.filter((note) => note.categories === 'Work');
+      } else if (args.search === 'School') {
+        filtered = notes.filter((note) => note.categories === 'School');
+      } else if (args.search === 'General') {
+        filtered = notes.filter((note) => note.categories === 'General');
+      }
+
+      return filtered?.reverse();
+    }
+
+    if (args.type === 'search') {
+      const search = args.search.toLowerCase();
+
+      const filtered = notes.filter(
+        (note) =>
+          note.title?.toLowerCase().includes(search) ||
+          note.content?.toLowerCase().includes(search) ||
+          note.categories?.toLowerCase().includes(search) ||
+          note.tags?.toLowerCase().includes(search)
+      );
+
+      return filtered.reverse();
+    }
   },
 });
 
@@ -85,5 +134,34 @@ export const editNote = mutation({
     await ctx.db.patch(id, updateData);
 
     return 'Note updated successfully';
+  },
+});
+
+export const getFilteredNotes = query({
+  args: {
+    search: v.optional(v.string()),
+  },
+
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (userId === null) {
+      throw new Error('User not authenticated');
+    }
+
+    const allNotes = await ctx.db.query('allNotes').collect();
+
+    if (!args.search) return allNotes;
+
+    const searchLower = args.search.toLowerCase();
+
+    const filtered = allNotes.filter(
+      (note) =>
+        note.title?.toLowerCase().includes(searchLower) ||
+        note.content?.toLowerCase().includes(searchLower) ||
+        note.categories?.toLowerCase().includes(searchLower) ||
+        note.tags?.toLowerCase().includes(searchLower)
+    );
+
+    return filtered;
   },
 });

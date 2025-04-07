@@ -8,7 +8,7 @@ export default function Dashboard() {
 
   return (
     <DashboardLayout>
-      {list === 'All Notes' ? (
+      {list === 'Notes' ? (
         <NotesLists />
       ) : list === 'Archive' ? (
         <ArchiveLists />

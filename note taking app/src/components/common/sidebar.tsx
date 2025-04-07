@@ -32,7 +32,7 @@ const navItems = [
 const dashboardNavItems = [
   {
     icon: Notebook,
-    label: 'All Notes',
+    label: 'Notes',
   },
   // {
   //   icon: FileArchive,
