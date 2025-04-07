@@ -6,7 +6,6 @@ import { api } from '@/../convex/_generated/api';
 import { useDebounce } from '@/hooks';
 
 export type DashboardContextType = {
-  // You can change this to whatever you want
   list: DashboardTabListType;
   filterInput: string;
   setFilterInput: Dispatch<SetStateAction<string>>;

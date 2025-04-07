@@ -35,12 +35,12 @@ export const getAllNotes = query({
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
     if (userId === null) {
-      throw new Error('User not authenticated');
+      console.log('Error occurred');
     }
 
     const notes = await ctx.db
       .query('allNotes')
-      .withIndex('by_user', (q) => q.eq('userId', userId))
+      .withIndex('by_user', (q) => q.eq('userId', userId!))
       .order('desc')
       .collect();
 
