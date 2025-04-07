@@ -22,7 +22,7 @@ export type CategoryType =
   | 'Others'
   | null;
 
-export type NoteListType = {
+export type SingleNoteType = {
   _id: Id<TableNames | SystemTableNames>;
   _creationTime: number;
   userId: Id<'users'>;
@@ -31,4 +31,6 @@ export type NoteListType = {
   categories: string;
   tags: string;
   bgColor: string;
-}[];
+};
+
+export type NoteListType = SingleNoteType[];

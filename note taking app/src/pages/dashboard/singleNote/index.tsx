@@ -1,11 +1,11 @@
-import Expenses from '@/containers/dashboard/expenses';
+import SingleNote from '@/containers/dashboard/single-note';
 import { Title } from '@/utils/components';
 
 export default function ExpensesPage() {
   return (
     <>
-      <Title title='Expenses' />
-      <Expenses />
+      <Title title='Single Note' />
+      <SingleNote />
     </>
   );
 }

@@ -13,6 +13,8 @@ import dayjs from 'dayjs';
 import { Flex } from 'antd';
 import { Badge } from '../ui/badge';
 import ConfirmDelete from './confirm-delete';
+import { useNavigate } from '@/hooks';
+import { DASHBOARD_PAGE } from '@/config';
 
 const NoteList = ({ notes }: { notes: NoteListType }) => {
   const [filteredNotes, setFilteredNotes] = useState<NoteListType | null>(null);
@@ -42,6 +44,8 @@ const NoteList = ({ notes }: { notes: NoteListType }) => {
     localStorage.setItem('notesTab', item);
   };
 
+  const { navigate } = useNavigate();
+
   useEffect(() => {
     localStorage.setItem('notesTab', notesTab as string);
 
@@ -69,7 +73,7 @@ const NoteList = ({ notes }: { notes: NoteListType }) => {
     <div className=''>
       <div className='flex flex-col-reverse gap-3.5 mb-6 md:flex-row md:items-center md:justify-between'>
         <div className='flex items-center justify-between'>
-          <p className='text-sm font-medium text-gray-600 dark:text-slate-300'>
+          <p className='text-base font-medium text-gray-600 dark:text-slate-300'>
             📅 {dayjs(Date.now()).format('MMMM YYYY')}
           </p>
 
@@ -99,6 +103,7 @@ const NoteList = ({ notes }: { notes: NoteListType }) => {
             <Card
               key={note._id}
               className={`${note.bgColor} rounded-xl shadow cursor-pointer transition-all hover:scale-95 active:scale-100`}
+              onClick={() => navigate(`${DASHBOARD_PAGE}/${note._id}`)}
             >
               <CardContent className='space-y-2 px-2.5 h-full lg:h-56'>
                 <div className='flex justify-between text-sm text-gray-700 dark:text-background font-medium'>
@@ -133,7 +138,7 @@ const NoteList = ({ notes }: { notes: NoteListType }) => {
                           );
                         })}
                     </Flex>
-                    <p className='text-xs text-blue-900 text-end secondary-font font-semibold'>
+                    <p className='text-sm text-blue-900 text-end secondary-font font-semibold'>
                       {dayjs(note._creationTime).format('hh:mm A dddd')}
                     </p>
                   </Flex>

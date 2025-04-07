@@ -1,5 +1,9 @@
 import { lazy } from 'react';
-import { DASHBOARD_PAGE, EXPENSES_PAGE, SETTINGS_PAGE } from '../page-routes';
+import {
+  DASHBOARD_PAGE,
+  SINGLE_NOTE_PAGE,
+  SETTINGS_PAGE,
+} from '../page-routes';
 
 export const dashboardRoutes = [
   {
@@ -8,8 +12,8 @@ export const dashboardRoutes = [
   },
 
   {
-    path: EXPENSES_PAGE,
-    component: lazy(() => import('../../pages/dashboard/expenses/index')),
+    path: SINGLE_NOTE_PAGE,
+    component: lazy(() => import('../../pages/dashboard/singleNote/index')),
   },
 
   {
