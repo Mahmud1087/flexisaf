@@ -27,11 +27,11 @@ const Hero = () => {
           </Button>
         </div>
       </section>
-      <section className='w-full h-72 md:h-[27rem] md:w-[45%]'>
+      <section className='w-full pl-10 pt-10 bg-white h-72 md:h-[27rem] rounded-md md:rounded-xl shadow-2xl md:w-[45%]'>
         <img
-          src='./static/hero-img.jpeg'
-          alt='Split Expenses'
-          className='w-full h-full object-cover rounded-md md:rounded-xl'
+          src='./static/hero-img.png'
+          alt='Website dashboard'
+          className='w-full h-full object-cover rounded-tl-md rounded-br-md md:rounded-br-xl md:rounded-tl-xl shadow-2xl'
         />
       </section>
     </div>
