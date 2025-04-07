@@ -1,4 +1,3 @@
-import { Pencil } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import {
   Select,
@@ -15,6 +14,8 @@ import { Badge } from '../ui/badge';
 import ConfirmDelete from './confirm-delete';
 import { useNavigate } from '@/hooks';
 import { DASHBOARD_PAGE } from '@/config';
+import EditNote from './edit-note-modal';
+import Markdown from 'react-markdown';
 
 const NoteList = ({ notes }: { notes: NoteListType }) => {
   const [filteredNotes, setFilteredNotes] = useState<NoteListType | null>(null);
@@ -103,46 +104,54 @@ const NoteList = ({ notes }: { notes: NoteListType }) => {
             <Card
               key={note._id}
               className={`${note.bgColor} rounded-xl shadow cursor-pointer transition-all hover:scale-95 active:scale-100`}
-              onClick={() => navigate(`${DASHBOARD_PAGE}/${note._id}`)}
             >
               <CardContent className='space-y-2 px-2.5 h-full lg:h-56'>
                 <div className='flex justify-between text-sm text-gray-700 dark:text-background font-medium'>
                   <span>{dayjs(note._creationTime).format('YYYY-MM-DD')}</span>
                   <Flex gap={12}>
                     <ConfirmDelete id={note._id} />
-                    <div className='h-6 w-6 flex items-center justify-center shadow-lg bg-background rounded-full cursor-pointer text-foreground'>
-                      <Pencil size={12} />
-                    </div>
+                    <EditNote {...note} />
                   </Flex>
                 </div>
-                <h3 className='text-lg font-semibold dark:text-gray-800 capitalize'>
-                  {note.title.slice(0, 25)}
-                </h3>
-                <p className='text-sm text-gray-600 hidden h-32 overflow-y-hidden lg:block'>
-                  {note.content}
-                </p>
-                <p className='text-sm text-gray-800 lg:hidden'>
-                  {note.content.slice(0, 30) + '...'}
-                </p>
-                <div className='mt-5'>
-                  <Flex justify='space-between'>
-                    <Flex gap={5}>
-                      {note.tags
-                        .split(' ')
-                        .splice(0, 2)
-                        .map((tag, i) => {
-                          return (
-                            <Badge key={i} className='rounded-full text-white'>
-                              {tag.slice(1)}
-                            </Badge>
-                          );
-                        })}
+                <section
+                  onClick={() => navigate(`${DASHBOARD_PAGE}/${note._id}`)}
+                >
+                  <h3 className='text-lg font-semibold dark:text-gray-800 capitalize'>
+                    {note.title.slice(0, 25)}
+                  </h3>
+                  <p className='text-sm text-gray-600 hidden h-32 overflow-y-hidden lg:block'>
+                    <Markdown>{note.content}</Markdown>
+                  </p>
+                  <p className='text-sm text-gray-800 lg:hidden'>
+                    <Markdown>
+                      {note.content.length >= 32
+                        ? note.content.slice(0, 32) + '...'
+                        : note.content}
+                    </Markdown>
+                  </p>
+                  <div className='mt-5'>
+                    <Flex justify='space-between'>
+                      <Flex gap={5}>
+                        {note.tags
+                          .split(' ')
+                          .splice(0, 2)
+                          .map((tag, i) => {
+                            return (
+                              <Badge
+                                key={i}
+                                className='rounded-full text-white'
+                              >
+                                {tag.slice(1)}
+                              </Badge>
+                            );
+                          })}
+                      </Flex>
+                      <p className='text-sm text-blue-900 text-end secondary-font font-semibold'>
+                        {dayjs(note._creationTime).format('hh:mm A dddd')}
+                      </p>
                     </Flex>
-                    <p className='text-sm text-blue-900 text-end secondary-font font-semibold'>
-                      {dayjs(note._creationTime).format('hh:mm A dddd')}
-                    </p>
-                  </Flex>
-                </div>
+                  </div>
+                </section>
               </CardContent>
             </Card>
           ))

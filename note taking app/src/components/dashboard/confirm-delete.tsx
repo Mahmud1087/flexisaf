@@ -1,17 +1,13 @@
 import { DeleteFilled, LoadingOutlined } from '@ant-design/icons';
 import { Button } from '../ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogTrigger,
-} from '../ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 import { useState } from 'react';
 import { useMutation } from 'convex/react';
 import { api } from '@/../convex/_generated/api';
 import { useToastContext } from '@/store/contexts';
 import { Id, TableNames } from 'convex/_generated/dataModel';
 import { SystemTableNames } from 'convex/server';
+import { Flex } from 'antd';
 
 type Props = {
   id: Id<TableNames | SystemTableNames>;
@@ -51,13 +47,23 @@ const ConfirmDelete = ({ id }: Props) => {
           <DeleteFilled />
         </div>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[425px]'>
-        <p className='text-center text-sm text-gray-700 dark:text-gray-100'>
+      <DialogContent className='sm:max-w-96'>
+        <p className='text-center text-sm text-gray-700 dark:text-gray-100 lg:text-base'>
           Are you sure you want to delete?
           <br /> This action cannot be undone
         </p>
 
-        <DialogFooter>
+        <Flex gap={15} align='center' justify='space-center'>
+          <Button
+            form='add-note-form'
+            disabled={loading}
+            onClick={() => setOpenModal(false)}
+            variant={'secondary'}
+            size={'sm'}
+            className='w-1/2'
+          >
+            <p className=''>Cancel</p>
+          </Button>
           <Button
             form='add-note-form'
             type='submit'
@@ -65,6 +71,7 @@ const ConfirmDelete = ({ id }: Props) => {
             onClick={() => handleRemoveNote(id)}
             variant={'destructive'}
             size={'sm'}
+            className='w-1/2'
           >
             {loading ? (
               <LoadingOutlined />
@@ -72,7 +79,7 @@ const ConfirmDelete = ({ id }: Props) => {
               <p className='text-white'>Delete</p>
             )}
           </Button>
-        </DialogFooter>
+        </Flex>
       </DialogContent>
     </Dialog>
   );

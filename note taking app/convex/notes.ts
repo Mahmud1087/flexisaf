@@ -60,3 +60,30 @@ export const removeNote = mutation({
     return 'Note deleted successfully';
   },
 });
+
+export const editNote = mutation({
+  args: {
+    id: v.id('allNotes'),
+    title: v.optional(v.string()),
+    content: v.optional(v.string()),
+    categories: v.optional(v.string()),
+    tags: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (userId === null) {
+      throw new Error('User not authenticated');
+    }
+
+    const { id, ...updateData } = args;
+
+    const note = await ctx.db.get(id);
+    if (!note || note.userId !== userId) {
+      throw new Error('Note not found or unauthorized');
+    }
+
+    await ctx.db.patch(id, updateData);
+
+    return 'Note updated successfully';
+  },
+});

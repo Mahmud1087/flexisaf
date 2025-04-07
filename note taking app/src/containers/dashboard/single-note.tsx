@@ -31,7 +31,7 @@ export default function SingleNote() {
         </p>
       </div>
 
-      <div className='flex flex-col gap-5'>
+      <div className='flex flex-col gap-5 w-[90%] mx-auto md:w-[80%] lg:w-[65%]'>
         <h1 className='tertiary-font text-4xl'>{noteDetails?.title}</h1>
         <div className='text-slate-600 text-base dark:text-gray-400'>
           <MarkDown>{noteDetails?.content}</MarkDown>
