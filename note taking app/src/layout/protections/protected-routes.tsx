@@ -1,25 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Navigate } from 'react-router-dom';
 import Layout from '../index';
 import { useConvexAuth } from 'convex/react';
 import { AUTH_PAGE } from '@/config';
-import { useToastContext } from '@/store/contexts';
-import { useEffect } from 'react';
 import { Spin } from '@/components/controls';
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useConvexAuth();
-  const { open } = useToastContext();
-
-  useEffect(() => {
-    if (!isAuthenticated && !isLoading) {
-      open({
-        type: 'error',
-        message: 'Unathenticated, please login.',
-        duration: 6,
-      });
-    }
-  }, []);
 
   if (isLoading) {
     return (
